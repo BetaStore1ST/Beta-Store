@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BetaStore Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:#06110b;
+font-family:'Tajawal',sans-serif;
+color:#fff;
+overflow-x:hidden
+}
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top right, rgba(0,255,120,.18), transparent 35%),
+radial-gradient(circle at bottom left, rgba(0,255,180,.1), transparent 30%);
+z-index:-1;
+}
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+border-bottom:1px solid rgba(0,255,120,.2);
+backdrop-filter:blur(10px);
+background:rgba(0,0,0,.3)
+}
+.logo{
+font-family:'Orbitron',sans-serif;
+font-size:24px;
+font-weight:900;
+color:#00ff88;
+text-shadow:0 0 15px #00ff88;
+}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+button{
+border:none;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+font-weight:700;
+transition:.3s;
+font-family:'Orbitron',sans-serif
+}
+.login{background:#00ff88;color:#00150c}
+.dashboard{background:transparent;border:1px solid #00ff88;color:#00ff88}
+.addbot{background:#0f2d20;color:#00ff88;border:1px solid rgba(0,255,120,.4)}
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 0 20px rgba(0,255,120,.5)
+}
+.hero{
+padding:90px 20px;
+text-align:center;
+max-width:900px;
+margin:auto
+}
+.hero h1{
+font-size:62px;
+font-family:'Orbitron',sans-serif;
+line-height:1.1;
+margin-bottom:20px;
+text-shadow:0 0 25px rgba(0,255,120,.5)
+}
+.hero p{
+color:#a8cdb7;
+font-size:18px;
+line-height:1.8;
+margin-bottom:35px
+}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+margin-top:50px
+}
+.card{
+background:rgba(0,0,0,.35);
+border:1px solid rgba(0,255,120,.2);
+border-radius:18px;
+padding:25px;
+transition:.3s
+}
+.card:hover{
+transform:translateY(-5px);
+border-color:#00ff88;
+box-shadow:0 0 25px rgba(0,255,120,.25)
+}
+.card h3{
+margin:10px 0;
+color:#00ff88
+}
+.dashboard-box{
+margin:50px auto;
+max-width:1000px;
+padding:25px;
+background:rgba(0,0,0,.35);
+border:1px solid rgba(0,255,120,.2);
+border-radius:20px
+}
+.input{
+width:100%;
+padding:12px;
+margin-top:8px;
+background:#08140d;
+border:1px solid rgba(0,255,120,.2);
+border-radius:10px;
+color:white
+}
+.section{margin-bottom:25px}
+.preview{
+margin-top:20px;
+padding:20px;
+background:#1e1f22;
+border-left:5px solid #00ff88;
+border-radius:12px
+}
+.avatar{
+width:55px;
+height:55px;
+border-radius:50%;
+border:2px solid #00ff88;
+object-fit:cover;
+box-shadow:0 0 20px rgba(0,255,120,.5)
+}
+.user{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:25px
+}
+small{color:#7ba38b}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<nav>
+<div class="logo">BETASTORE</div>
+
+<div class="btns">
+<button class="login" onclick="discordLogin()">تسجيل دخول</button>
+<button class="dashboard">لوحة التحكم</button>
+<button class="addbot" onclick="addBot()">إضافة البوت</button>
+</div>
+</nav>
+
+<section class="hero">
+<h1>لوحة تحكم بوت التكت</h1>
+<p>
+تحكم كامل بالتكتات — الأزرار — الإيمبد — الصور — الرتب — القائمة<br>
+بتصميم نيون أخضر احترافي وربط Discord حقيقي
+</p>
+
+<div class="cards">
+<div class="card">
+<h3>Discord OAuth</h3>
+<p>تسجيل دخول بحساب المستخدم الحقيقي مع الصورة واليوزر</p>
+</div>
+
+<div class="card">
+<h3>Embed Builder</h3>
+<p>تعديل رسالة التكت والصورة والإيمبد مباشر</p>
+</div>
+
+<div class="card">
+<h3>Buttons Manager</h3>
+<p>تخصيص أزرار التكت بالكامل من الداشبورد</p>
+</div>
+</div>
+</section>
+
+<div class="dashboard-box">
+
+<div class="user">
+<img class="avatar" id="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png">
+<div>
+<div id="username">Guest User</div>
+<small>Discord Connected</small>
+</div>
+</div>
+
+<div class="section">
+<label>عنوان الإيمبد</label>
+<input class="input" id="embedTitle" value="BetaStore Tickets">
+</div>
+
+<div class="section">
+<label>رسالة الإيمبد</label>
+<textarea class="input" id="embedMessage" rows="5">أهلاً بك داخل التذكرة سيتم الرد عليك قريباً</textarea>
+</div>
+
+<div class="section">
+<label>رتبة الإدارة ID</label>
+<input class="input" id="roleId" placeholder="123456789">
+</div>
+
+<div class="section">
+<label>رابط صورة الإيمبد</label>
+<input class="input" id="embedImage" placeholder="https://image.png">
+</div>
+
+<button class="login" onclick="saveSettings()">حفظ الإعدادات</button>
+
+<div class="preview">
+<h3 id="previewTitle">BetaStore Tickets</h3>
+<p id="previewMessage">أهلاً بك داخل التذكرة سيتم الرد عليك قريباً</p>
+</div>
+
+</div>
+
+<script>
+document.getElementById('embedTitle').oninput=e=>{
+document.getElementById('previewTitle').innerText=e.target.value
+}
+
+document.getElementById('embedMessage').oninput=e=>{
+document.getElementById('previewMessage').innerText=e.target.value
+}
+
+function saveSettings(){
+alert('تم حفظ إعدادات البوت بنجاح')
+}
+
+function addBot(){
+window.open('https://discord.com/developers/applications','_blank')
+}
+
+async function discordLogin(){
+window.location='/auth/discord'
+}
+</script>
+
+</body>
+</html>
